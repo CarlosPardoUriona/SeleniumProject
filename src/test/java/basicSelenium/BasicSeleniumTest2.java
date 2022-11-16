@@ -15,59 +15,15 @@ import java.util.Date;
 
 public class BasicSeleniumTest2 {
 
-    WebDriver driver;
+   public static void main(String[] args){
+       // prints Java Runtime Version before property set
+       System.out.print("Previous : ");
+       System.out.println(System.getProperty("webdriver.chrome.driver"));
+       System.setProperty("java.runtime.version", "Java Runtime 1.6.0");
 
-    @BeforeEach
-    public void setup(){
-        System.setProperty("webdriver.chrome.driver","src/test/resources/driver/chromedriver.exe");
-        driver = new ChromeDriver();
-        // implicit
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-        // page load wait
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
-        driver.manage().window().maximize();
-        driver.get("http://todo.ly/");
-    }
+       // prints Java Runtime Version after property set
+       System.out.print("New : ");
+       System.out.println(System.getProperty("java.runtime.version" ));
 
-    @AfterEach
-    public void cleanup(){
-        driver.quit();
-    }
-
-    @Test
-    public void verifyCRUDProject() throws InterruptedException {
-
-        // login
-        driver.findElement(By.xpath("//img[contains(@src,'pagelogin')]")).click();
-        driver.findElement(By.id("ctl00_MainContent_LoginControl1_TextBoxEmail")).sendKeys("bootcamp@mojix44.com");
-        driver.findElement(By.id("ctl00_MainContent_LoginControl1_TextBoxPassword")).sendKeys("12345");
-        driver.findElement(By.id("ctl00_MainContent_LoginControl1_ButtonLogin")).click();
-
-        // Explicit Wait
-        //Thread.sleep(5000);
-        WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        explicitWait.until(ExpectedConditions.elementToBeClickable(By.id("ctl00_HeaderTopControl1_LinkButtonLogout")));
-
-        Assertions.assertTrue(driver.findElement(By.id("ctl00_HeaderTopControl1_LinkButtonLogout")).isDisplayed()
-                                    ,"ERROR login was incorrect");
-
-        // create
-        String nameProject="Mojix"+new Date().getTime();
-        driver.findElement(By.xpath("//td[text()='Add New Project']")).click();
-        driver.findElement(By.id("NewProjNameInput")).sendKeys(nameProject);
-        driver.findElement(By.id("NewProjNameButton")).click();
-        Thread.sleep(1000);
-        int actualResult=driver.findElements(By.xpath(" //td[text()='"+nameProject+"'] ")).size();
-        Assertions.assertTrue(actualResult >= 1
-                ,"ERROR The project was not created");
-        // create task
-        driver.findElement(By.id("NewItemContentInput")).sendKeys("Eynar");
-        driver.findElement(By.id("NewItemAddButton")).click();
-        // create update
-        driver.findElement(By.xpath("//div[@class=\"ItemContentDiv\" and text()='Eynar']")).click();
-        driver.findElement(By.id("ItemEditTextbox")).clear();
-        driver.findElement(By.id("ItemEditTextbox")).sendKeys("Update\n");
-        Thread.sleep(5000);
-
-    }
+   }
 }

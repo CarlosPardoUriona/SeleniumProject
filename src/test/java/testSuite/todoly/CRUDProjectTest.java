@@ -10,8 +10,8 @@ public class CRUDProjectTest extends TestBase{
 
     @Test
     public void verifyCRUDProject(){
-        String projectCreated="MOJIX"+new Date().getTime();
-        String projectUpdated="QA"+new Date().getTime();
+        String projectCreated="PROJECT"+new Date().getTime();
+        String projectUpdated="UPDATED"+new Date().getTime();
 
         mainPage.loginLabel.click();
         loginSection.emailTxtBox.setText(user);

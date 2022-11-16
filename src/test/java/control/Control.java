@@ -45,4 +45,9 @@ public class Control {
         explicitWait.until(ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(this.locator)));
     }
 
+    public void waitWhileControlIsVisible(){
+        WebDriverWait explicitWait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(5));
+        explicitWait.until(ExpectedConditions.visibilityOfElementLocated(this.locator));
+    }
+
 }

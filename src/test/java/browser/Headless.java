@@ -9,7 +9,7 @@ import java.time.Duration;
 public class Headless implements IBrowser{
     @Override
     public WebDriver create() {
-        System.setProperty("webdriver.chrome.driver","src/test/resources/driver/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","src/test/resources/driver/chromedriver");
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");

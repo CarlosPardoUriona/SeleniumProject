@@ -22,10 +22,10 @@ public class BasicSeleniumTest {
 
     @BeforeEach
     public void setup(){
-        System.setProperty("webdriver.chrome.driver","src/test/resources/driver/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","src/test/resources/driver/chromedriver");
         driver = new ChromeDriver();
         // implicit
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         // page load wait
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
         driver.get("http://todo.ly/");
@@ -41,8 +41,8 @@ public class BasicSeleniumTest {
 
         // login
         driver.findElement(By.xpath("//img[contains(@src,'pagelogin')]")).click();
-        driver.findElement(By.id("ctl00_MainContent_LoginControl1_TextBoxEmail")).sendKeys("bootcamp@mojix44.com");
-        driver.findElement(By.id("ctl00_MainContent_LoginControl1_TextBoxPassword")).sendKeys("12345");
+        driver.findElement(By.id("ctl00_MainContent_LoginControl1_TextBoxEmail")).sendKeys("karlitos.p@gmail.com");
+        driver.findElement(By.id("ctl00_MainContent_LoginControl1_TextBoxPassword")).sendKeys("123456");
         driver.findElement(By.id("ctl00_MainContent_LoginControl1_ButtonLogin")).click();
 
         // Explicit Wait
@@ -59,7 +59,7 @@ public class BasicSeleniumTest {
                                     ,"ERROR login was incorrect");
 
         // create
-        String nameProject="Mojix"+new Date().getTime();
+        String nameProject="TEST"+new Date().getTime();
         driver.findElement(By.xpath("//td[text()='Add New Project']")).click();
         driver.findElement(By.id("NewProjNameInput")).sendKeys(nameProject);
         driver.findElement(By.id("NewProjNameButton")).click();
@@ -68,7 +68,7 @@ public class BasicSeleniumTest {
         Assertions.assertTrue(actualResult >= 1
                 ,"ERROR The project was not created");
 
-        nameProject="Update"+new Date().getTime();
+        nameProject="Updated"+new Date().getTime();
         // update
         driver.findElement(By.xpath("//div[contains(@style,'block')]/img")).click();
         driver.findElement(By.xpath("//ul[@id=\"projectContextMenu\"]//a[text()='Edit']")).click();
@@ -90,5 +90,16 @@ public class BasicSeleniumTest {
         actualResult=driver.findElements(By.xpath(" //td[text()='"+nameProject+"'] ")).size();
         Assertions.assertTrue(actualResult == 0
                 ,"ERROR The project was not removed");
+
+        //driver.findElement(By.xpath("//a[text()='Blog']")).click();
+
+
+        //driver.get("http://todo.ly/Blog/");
+
+        driver.findElement(By.xpath("//a[text()='Public API']")).click();
+        driver.findElement(By.xpath("//a[text()='Projects']")).click();
+
+        Thread.sleep(2000);
+        //driver.switchTo(""):
     }
 }
